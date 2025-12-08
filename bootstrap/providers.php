@@ -6,6 +6,8 @@ return [
      */
     App\Providers\AppServiceProvider::class,
 
+    Meze\UnifiedLogin\Providers\UnifiedLoginServiceProvider::class,
+
     /**
      * Webkul's service providers.
      */

@@ -1,0 +1,19 @@
+{
+    "name": "meze/unifiedlogin",
+    "description": "Unified login module for Bagisto",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Meze\\UnifiedLogin\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Meze\\UnifiedLogin\\Providers\\UnifiedLoginServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

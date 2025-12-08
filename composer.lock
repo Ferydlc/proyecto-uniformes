@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f992bd3a65209139a1efcb24489d967",
+    "content-hash": "05a412f3fecedc6c5e6986fb11329481",
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
@@ -4166,6 +4166,25 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
             },
             "time": "2024-03-31T07:05:07+00:00"
+        },
+        {
+            "name": "meze/unifiedlogin",
+            "version": "2.3.x-dev",
+            "dist": {
+                "type": "path",
+                "url": "packages/Meze/UnifiedLogin",
+                "reference": "cc6d549b1488e52ab1c62c285f6401df2805f526"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Meze\\UnifiedLogin\\": "src/"
+                }
+            },
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -13991,7 +14010,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bagisto/image-cache": 20
+        "bagisto/image-cache": 20,
+        "meze/unifiedlogin": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

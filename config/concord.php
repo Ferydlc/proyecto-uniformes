@@ -13,7 +13,7 @@ return [
      * VendorA\ModuleX\Providers\ModuleServiceProvider::class,
      * VendorB\ModuleY\Providers\ModuleServiceProvider::class,
      */
-    'modules' => [
+    'modules' => [    
         \Webkul\Admin\Providers\ModuleServiceProvider::class,
         \Webkul\Attribute\Providers\ModuleServiceProvider::class,
         \Webkul\BookingProduct\Providers\ModuleServiceProvider::class,
