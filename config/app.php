@@ -2,43 +2,10 @@
 
 return [
 
-        'providers' => 
-    /*
-    * Laravel Framework Service Providers...
-    */
-    Illuminate\Auth\AuthServiceProvider::class,
-    Illuminate\Broadcasting\BroadcastServiceProvider::class,
-    Illuminate\Bus\BusServiceProvider::class,
-    Illuminate\Cache\CacheServiceProvider::class,
-    Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-    Illuminate\Cookie\CookieServiceProvider::class,
-    Illuminate\Database\DatabaseServiceProvider::class,
-    Illuminate\Encryption\EncryptionServiceProvider::class,
-    Illuminate\Filesystem\FilesystemServiceProvider::class,
-    Illuminate\Foundation\Providers\FoundationServiceProvider::class,
-    Illuminate\Hashing\HashServiceProvider::class,
-    Illuminate\Mail\MailServiceProvider::class,
-    Illuminate\Notifications\NotificationServiceProvider::class,
-    Illuminate\Pagination\PaginationServiceProvider::class,
-    Illuminate\Pipeline\PipelineServiceProvider::class,
-    Illuminate\Queue\QueueServiceProvider::class,
-    Illuminate\Redis\RedisServiceProvider::class,
-    Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
-    Illuminate\Session\SessionServiceProvider::class,
-    Illuminate\Translation\TranslationServiceProvider::class,
-    Illuminate\Validation\ValidationServiceProvider::class,
-    Illuminate\View\ViewServiceProvider::class,
-
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
-    |
-    | This value is the name of your application. This value is used when the
-    | framework needs to place the application's name in a notification or
-    | any other location as required by the application or its packages.
-    |
     */
 
     'name' => env('APP_NAME', 'Bagisto'),
@@ -47,11 +14,6 @@ return [
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
-    |
-    | This value determines the "environment" your application is currently
-    | running in. This may determine how you prefer to configure various
-    | services your application utilizes. Set this in your ".env" file.
-    |
     */
 
     'env' => env('APP_ENV', 'production'),
@@ -60,11 +22,6 @@ return [
     |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
-    |
-    | When your application is in debug mode, detailed error messages with
-    | stack traces will be shown on every error that occurs within your
-    | application. If disabled, a simple generic error page is shown.
-    |
     */
 
     'debug' => env('APP_DEBUG', false),
@@ -73,10 +30,6 @@ return [
     |--------------------------------------------------------------------------
     | Debug Allowed IPs
     |--------------------------------------------------------------------------
-    |
-    | This value is used to allow the debug mode only for the specified IPs.
-    | This is useful when you want to debug the application on the production
-    | server without enabling it for everyone.
     */
 
     'debug_allowed_ips' => env('APP_DEBUG_ALLOWED_IPS', null),
@@ -85,11 +38,6 @@ return [
     |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
-    |
-    | This URL is used by the console to properly generate URLs when using
-    | the Artisan command line tool. You should set this to the root of
-    | your application so that it is used when running Artisan tasks.
-    |
     */
 
     'url' => env('APP_URL', 'http://localhost'),
@@ -98,10 +46,6 @@ return [
     |--------------------------------------------------------------------------
     | Application Admin URL
     |--------------------------------------------------------------------------
-    |
-    | This URL suffix is used to define the admin url for example
-    | admin/ or backend/
-    |
     */
 
     'admin_url' => env('APP_ADMIN_URL', 'admin'),
@@ -110,11 +54,6 @@ return [
     |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
-    |
-    | Here you may specify the default timezone for your application, which
-    | will be used by the PHP date and date-time functions. We have gone
-    | ahead and set this to a sensible default for you out of the box.
-    |
     */
 
     'timezone' => env('APP_TIMEZONE', 'Asia/Kolkata'),
@@ -123,11 +62,6 @@ return [
     |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
-    |
-    | The application locale determines the default locale that will be used
-    | by the translation service provider. You are free to set this value
-    | to any of the locales which will be supported by the application.
-    |
     */
 
     'locale' => env('APP_LOCALE', 'en'),
@@ -140,13 +74,6 @@ return [
     |--------------------------------------------------------------------------
     | Default Country
     |--------------------------------------------------------------------------
-    |
-    | Here you may specify the default country by country code.
-    | Ensure it is uppercase and reflects the 'code' column of the
-    | countries table.
-    |
-    | for example: DE EN FR
-    | (use capital letters!)
     */
 
     'default_country' => null,
@@ -155,9 +82,6 @@ return [
     |--------------------------------------------------------------------------
     | Base Currency Code
     |--------------------------------------------------------------------------
-    |
-    | Here you may specify the base currency code for your application.
-    |
     */
 
     'currency' => env('APP_CURRENCY', 'USD'),
@@ -166,9 +90,6 @@ return [
     |--------------------------------------------------------------------------
     | Default channel Code
     |--------------------------------------------------------------------------
-    |
-    | Here you may specify the default channel code for your application.
-    |
     */
 
     'channel' => 'default',
@@ -177,11 +98,6 @@ return [
     |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
-    |
-    | This key is used by the Illuminate encrypter service and should be set
-    | to a random, 32 character string, otherwise these encrypted strings
-    | will not be safe. Please do this before deploying an application!
-    |
     */
 
     'cipher' => 'AES-256-CBC',
@@ -198,18 +114,59 @@ return [
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
     |--------------------------------------------------------------------------
-    |
-    | These configuration options determine the driver used to determine and
-    | manage Laravel's "maintenance mode" status. The "cache" driver will
-    | allow maintenance mode to be controlled across multiple machines.
-    |
-    | Supported drivers: "file", "cache"
-    |
     */
 
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store'  => env('APP_MAINTENANCE_STORE', 'database'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Service Providers
+    |--------------------------------------------------------------------------
+    */
+
+    'providers' => [
+        /*
+        * Laravel Framework Service Providers...
+        */
+        Illuminate\Auth\AuthServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
+        Illuminate\Bus\BusServiceProvider::class,
+        Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+        Illuminate\Cookie\CookieServiceProvider::class,
+        Illuminate\Database\DatabaseServiceProvider::class,
+        Illuminate\Encryption\EncryptionServiceProvider::class,
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
+        Illuminate\Hashing\HashServiceProvider::class,
+        Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        Illuminate\Pagination\PaginationServiceProvider::class,
+        Illuminate\Pipeline\PipelineServiceProvider::class,
+        Illuminate\Queue\QueueServiceProvider::class,
+        Illuminate\Redis\RedisServiceProvider::class,
+        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Illuminate\Session\SessionServiceProvider::class,
+        Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
+
+        /*
+        * Package Service Providers...
+        */
+        Konekt\Concord\ConcordServiceProvider::class,
+
+        /*
+        * Application Service Providers...
+        */
+        // IMPORTANTE: Este provider debe estar DESPUÉS de Concord
+        // para sobrescribir las rutas de Bagisto
+        App\Providers\AppServiceProvider::class,
+        // Agregar al final para sobrescribir rutas
+        Meze\UnifiedLogin\Providers\UnifiedLoginServiceProvider::class,
     ],
 
 ];

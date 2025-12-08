@@ -46,7 +46,6 @@
         "spatie/laravel-responsecache": "^7.4",
         "spatie/laravel-sitemap": "^7.3",
         "stevebauman/purify": "^6.3",
-
         "meze/unifiedlogin": "2.3.x-dev"
     },
     "require-dev": {
@@ -98,7 +97,8 @@
             "Webkul\\SocialShare\\": "packages/Webkul/SocialShare/src",
             "Webkul\\Tax\\": "packages/Webkul/Tax/src",
             "Webkul\\Theme\\": "packages/Webkul/Theme/src",
-            "Webkul\\User\\": "packages/Webkul/User/src"
+            "Webkul\\User\\": "packages/Webkul/User/src",
+            "Meze\\UnifiedLogin\\": "packages/Meze/UnifiedLogin/src"
         }
     },
     "autoload-dev": {

@@ -42,6 +42,9 @@ return [
         \Webkul\Tax\Providers\ModuleServiceProvider::class,
         \Webkul\Theme\Providers\ModuleServiceProvider::class,
         \Webkul\User\Providers\ModuleServiceProvider::class,
+        
+        // Nota: UnifiedLogin se registra como provider normal en config/app.php
+        // No como módulo de Concord
     ],
 
 ];

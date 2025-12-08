@@ -1,7 +1,13 @@
 {
     "name": "meze/unifiedlogin",
-    "description": "Unified login module for Bagisto",
+    "description": "Unified login module for Bagisto - Admin and Customer",
     "type": "library",
+    "version": "2.3.0",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "konekt/concord": "^1.2"
+    },
     "autoload": {
         "psr-4": {
             "Meze\\UnifiedLogin\\": "src/"

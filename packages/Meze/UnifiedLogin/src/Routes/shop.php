@@ -3,13 +3,44 @@
 use Illuminate\Support\Facades\Route;
 use Meze\UnifiedLogin\Http\Controllers\UnifiedLoginController;
 
+// Estas rutas sobrescriben las rutas originales de Bagisto
+// usando los MISMOS nombres de ruta
+
 Route::middleware('web')->group(function () {
 
-    // Sobrescribe la ruta GET del login del customer
+    // ========================================
+    // CUSTOMER LOGIN - Sobrescribe rutas de Shop
+    // ========================================
+    
+    // GET /customer/login - Mostrar formulario
     Route::get('/customer/login', [UnifiedLoginController::class, 'showLoginForm'])
-        ->name('shop.customer.login.index');
+        ->name('shop.customer.session.index');
 
-    // Sobrescribe la ruta POST del login del customer
+    // POST /customer/login - Procesar login
     Route::post('/customer/login', [UnifiedLoginController::class, 'login'])
-        ->name('shop.customer.login.create');
+        ->name('shop.customer.session.create');
+
+    // ========================================
+    // ADMIN LOGIN - Sobrescribe rutas de Admin
+    // ========================================
+    
+    // GET /admin/login - Mostrar formulario
+    Route::get('/admin/login', [UnifiedLoginController::class, 'showLoginForm'])
+        ->name('admin.session.create');
+
+    // POST /admin/login - Procesar login
+    Route::post('/admin/login', [UnifiedLoginController::class, 'login'])
+        ->name('admin.session.store');
+
+    // ========================================
+    // LOGOUT - Nuevas rutas unificadas
+    // ========================================
+    
+    // DELETE /customer/session - Logout customer (sobrescribe original)
+    Route::delete('/customer/session', [UnifiedLoginController::class, 'logout'])
+        ->name('shop.customer.session.destroy');
+        
+    // DELETE /admin/session - Logout admin (sobrescribe original)
+    Route::delete('/admin/session', [UnifiedLoginController::class, 'logout'])
+        ->name('admin.session.destroy');
 });

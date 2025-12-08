@@ -2,17 +2,16 @@
 
 namespace Meze\UnifiedLogin\Providers;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
+use Konekt\Concord\BaseModuleServiceProvider;
 
-class UnifiedLoginServiceProvider extends ServiceProvider
+class ModuleServiceProvider extends BaseModuleServiceProvider
 {
     /**
      * Register services.
      */
     public function register(): void
     {
-        // Registro de servicios si es necesario
+        parent::register();
     }
 
     /**
@@ -20,6 +19,11 @@ class UnifiedLoginServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        parent::boot();
+
+        // Cargar rutas
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/shop.php');
+
         // Cargar vistas
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'unifiedlogin');
 
@@ -27,11 +31,5 @@ class UnifiedLoginServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../Resources/views' => resource_path('views/vendor/unifiedlogin'),
         ], 'unifiedlogin-views');
-
-        // IMPORTANTE: Cargar rutas al FINAL para sobrescribir
-        // las rutas de Bagisto
-        $this->app->booted(function () {
-            $this->loadRoutesFrom(__DIR__ . '/../Routes/shop.php');
-        });
     }
 }
