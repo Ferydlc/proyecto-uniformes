@@ -20,6 +20,10 @@ Route::middleware('web')->group(function () {
     Route::post('/customer/login', [UnifiedLoginController::class, 'login'])
         ->name('shop.customer.session.create');
 
+    // Alias adicional por si acaso
+    Route::get('/customer/session/create', [UnifiedLoginController::class, 'showLoginForm'])
+        ->name('shop.customer.session.create.form');
+
     // ========================================
     // ADMIN LOGIN - Sobrescribe rutas de Admin
     // ========================================
@@ -33,14 +37,21 @@ Route::middleware('web')->group(function () {
         ->name('admin.session.store');
 
     // ========================================
-    // LOGOUT - Nuevas rutas unificadas
+    // LOGOUT - Rutas unificadas
     // ========================================
     
-    // DELETE /customer/session - Logout customer (sobrescribe original)
+    // DELETE /customer/session - Logout customer
     Route::delete('/customer/session', [UnifiedLoginController::class, 'logout'])
         ->name('shop.customer.session.destroy');
         
-    // DELETE /admin/session - Logout admin (sobrescribe original)
+    // DELETE /admin/session - Logout admin
     Route::delete('/admin/session', [UnifiedLoginController::class, 'logout'])
         ->name('admin.session.destroy');
+
+    // POST alternativo para logout (por si se usa POST en lugar de DELETE)
+    Route::post('/customer/logout', [UnifiedLoginController::class, 'logout'])
+        ->name('shop.customer.logout');
+        
+    Route::post('/admin/logout', [UnifiedLoginController::class, 'logout'])
+        ->name('admin.logout');
 });

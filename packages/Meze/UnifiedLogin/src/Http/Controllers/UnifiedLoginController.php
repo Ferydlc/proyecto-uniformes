@@ -93,6 +93,7 @@ class UnifiedLoginController extends Controller
 
         session()->flash('success', 'Has cerrado sesión correctamente');
 
-        return redirect()->route('shop.customer.login.index');
+        // ✅ CORRECCIÓN: Usar la ruta correcta que SÍ existe
+        return redirect()->route('shop.customer.session.index');
     }
 }
