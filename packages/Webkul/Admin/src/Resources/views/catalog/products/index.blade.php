@@ -1,37 +1,64 @@
 <x-admin::layouts>
     <x-slot:title>
-        @lang('admin::app.catalog.products.index.title')
+        Catálogo de Uniformes - Colegio Meze
     </x-slot>
 
+    <!-- Header Section -->
     <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
-        <p class="text-xl font-bold text-gray-800 dark:text-white">
-            @lang('admin::app.catalog.products.index.title')
-        </p>
+        <div>
+            <p class="text-xl font-bold text-gray-800 dark:text-white">
+                Catálogo de Uniformes y Accesorios
+            </p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                Gestiona uniformes diarios, deportivos, de invierno y accesorios
+            </p>
+        </div>
 
         <div class="flex items-center gap-x-2.5">
+            <!-- Filtros Rápidos -->
+            <v-category-filter></v-category-filter>
+
             <!-- Export Modal -->
             <x-admin::datagrid.export :src="route('admin.catalog.products.index')" />
 
-            {!! view_render_event('bagisto.admin.catalog.products.create.before') !!}
-
+            <!-- Crear Producto -->
             @if (bouncer()->hasPermission('catalog.products.create'))
                 <v-create-product-form>
                     <button
                         type="button"
-                        class="primary-button"
+                        class="primary-button flex items-center gap-2"
                     >
-                        @lang('admin::app.catalog.products.index.create-btn')
+                        <span class="icon-add text-lg"></span>
+                        Nuevo Producto
                     </button>
                 </v-create-product-form>
             @endif
-
-            {!! view_render_event('bagisto.admin.catalog.products.create.after') !!}
         </div>
     </div>
 
-    {!! view_render_event('bagisto.admin.catalog.products.list.before') !!}
+    <!-- Filtros de Categoría Rápidos -->
+    <div class="mt-4 flex flex-wrap gap-2">
+        <button class="rounded-lg border-2 border-[#1e3c72] bg-[#1e3c72] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2a5298]">
+            Todos los Productos
+        </button>
+        <button class="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-[#1e3c72] hover:text-[#1e3c72] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            Uniformes Diarios
+        </button>
+        <button class="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-[#1e3c72] hover:text-[#1e3c72] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            Uniformes Deportivos
+        </button>
+        <button class="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-[#1e3c72] hover:text-[#1e3c72] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            Uniformes de Invierno
+        </button>
+        <button class="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-[#1e3c72] hover:text-[#1e3c72] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            Accesorios
+        </button>
+        <button class="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-[#1e3c72] hover:text-[#1e3c72] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            Equipos de Fútbol
+        </button>
+    </div>
 
-    <!-- Datagrid -->
+    <!-- Datagrid Mejorado -->
     <x-admin::datagrid
         :src="route('admin.catalog.products.index')"
         :isMultiRow="true"
@@ -54,10 +81,10 @@
             </template>
 
             <template v-else>
-                <div class="row grid gap-2 md:grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center border-b px-4 py-2.5 dark:border-gray-800">
+                <div class="row grid gap-2 md:grid-cols-[2fr_1fr_1fr] grid-rows-1 items-center border-b bg-gray-50 px-4 py-3 dark:border-gray-800 dark:bg-gray-900">
                     <div
                         class="flex select-none items-center gap-2.5"
-                        v-for="(columnGroup, index) in [['name', 'sku', 'attribute_family'], ['base_image', 'price', 'quantity', 'product_id'], ['status', 'category_name', 'type']]"
+                        v-for="(columnGroup, index) in [['name', 'sku'], ['base_image', 'price', 'quantity'], ['status', 'category_name', 'type']]"
                     >
                         @if ($hasPermission)
                             <label
@@ -77,8 +104,8 @@
                                 <span
                                     class="icon-uncheckbox cursor-pointer rounded-md text-2xl"
                                     :class="[
-                                        applied.massActions.meta.mode === 'all' ? 'peer-checked:icon-checked peer-checked:text-blue-600' : (
-                                            applied.massActions.meta.mode === 'partial' ? 'peer-checked:icon-checkbox-partial peer-checked:text-blue-600' : ''
+                                        applied.massActions.meta.mode === 'all' ? 'peer-checked:icon-checked peer-checked:text-[#1e3c72]' : (
+                                            applied.massActions.meta.mode === 'partial' ? 'peer-checked:icon-checkbox-partial peer-checked:text-[#1e3c72]' : ''
                                         ),
                                     ]"
                                 >
@@ -86,14 +113,14 @@
                             </label>
                         @endif
 
-                        <p class="text-gray-600 dark:text-gray-300">
+                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">
                             <span class="[&>*]:after:content-['_/_']">
                                 <template v-for="column in columnGroup">
                                     <span
                                         class="after:content-['/'] last:after:content-['']"
                                         :class="{
-                                            'font-medium text-gray-800 dark:text-white': applied.sort.column == column,
-                                            'cursor-pointer hover:text-gray-800 dark:hover:text-white': available.columns.find(columnTemp => columnTemp.index === column)?.sortable,
+                                            'font-bold text-[#1e3c72] dark:text-[#3b6bb8]': applied.sort.column == column,
+                                            'cursor-pointer hover:text-[#1e3c72] dark:hover:text-[#3b6bb8]': available.columns.find(columnTemp => columnTemp.index === column)?.sortable,
                                         }"
                                         @click="
                                             available.columns.find(columnTemp => columnTemp.index === column)?.sortable ? sort(available.columns.find(columnTemp => columnTemp.index === column)): {}
@@ -105,7 +132,7 @@
                             </span>
 
                             <i
-                                class="align-text-bottom text-base text-gray-800 dark:text-white ltr:ml-1.5 rtl:mr-1.5"
+                                class="align-text-bottom text-base text-[#1e3c72] dark:text-[#3b6bb8] ltr:ml-1.5 rtl:mr-1.5"
                                 :class="[applied.sort.order === 'asc' ? 'icon-down-stat': 'icon-up-stat']"
                                 v-if="columnGroup.includes(applied.sort.column)"
                             ></i>
@@ -129,12 +156,11 @@
 
             <template v-else>
                 <div
-                    class="row border-b px-2 py-2.5 transition-all hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-950 sm:px-4 md:grid md:grid-cols-[2fr_1fr_1fr] md:grid-rows-1 md:gap-1.5"
+                    class="row border-b px-2 py-3 transition-all hover:bg-blue-50 dark:border-gray-800 dark:hover:bg-gray-900 sm:px-4 md:grid md:grid-cols-[2fr_1fr_1fr] md:grid-rows-1 md:gap-1.5"
                     v-for="record in available.records"
                 >
                     <!-- Mobile Layout -->
                     <div class="block space-y-3 md:hidden">
-                        <!-- Header Row with Checkbox, Name and Actions -->
                         <div class="flex items-start justify-between gap-3">
                             <div class="flex items-start gap-2.5">
                                 @if ($hasPermission)
@@ -148,100 +174,94 @@
                                     >
 
                                     <label
-                                        class="icon-uncheckbox peer-checked:icon-checked cursor-pointer rounded-md text-2xl peer-checked:text-blue-600"
+                                        class="icon-uncheckbox peer-checked:icon-checked cursor-pointer rounded-md text-2xl peer-checked:text-[#1e3c72]"
                                         :for="`mass_action_select_record_${record.product_id}`"
                                     ></label>
                                 @endif
 
+                                <!-- Imagen del producto mejorada -->
                                 <div class="relative flex-shrink-0">
                                     <template v-if="record.base_image">
                                         <img
-                                            class="h-12 w-12 rounded object-cover sm:h-16 sm:w-16"
+                                            class="h-20 w-20 rounded-lg border-2 border-gray-200 object-cover sm:h-24 sm:w-24"
                                             :src='record.base_image'
                                         />
 
-                                        <span class="absolute -bottom-1 -right-1 rounded-full bg-darkPink px-1 text-xs font-bold leading-normal text-white">
+                                        <span class="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-[#1e3c72] text-xs font-bold text-white">
                                             @{{ record.images_count }}
                                         </span>
                                     </template>
 
                                     <template v-else>
-                                        <div class="relative h-12 w-12 rounded border border-dashed border-gray-300 dark:border-gray-800 dark:mix-blend-exclusion dark:invert sm:h-16 sm:w-16">
-                                            <img src="{{ bagisto_asset('images/product-placeholders/front.svg')}}" class="h-full w-full object-cover">
+                                        <div class="relative h-20 w-20 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-800 sm:h-24 sm:w-24">
+                                            <img src="{{ bagisto_asset('images/product-placeholders/front.svg')}}" class="h-full w-full object-cover p-2">
 
-                                            <p class="absolute bottom-0 w-full text-center text-[6px] font-semibold text-gray-400">
-                                                @lang('admin::app.catalog.products.index.datagrid.product-image')
+                                            <p class="absolute bottom-1 w-full text-center text-[8px] font-semibold text-gray-400">
+                                                Sin imagen
                                             </p>
                                         </div>
                                     </template>
+
+                                    <!-- Badge de stock -->
+                                    <div class="absolute -top-2 -left-2" v-if="record.quantity <= 0">
+                                        <span class="rounded-full bg-red-500 px-2 py-1 text-xs font-bold text-white">
+                                            Sin Stock
+                                        </span>
+                                    </div>
                                 </div>
 
-                                <div class="flex flex-col gap-1 flex-1">
-                                    <p class="break-all text-sm font-semibold text-gray-800 dark:text-white sm:text-base">
+                                <div class="flex flex-col gap-1.5 flex-1">
+                                    <p class="break-all text-base font-bold text-gray-800 dark:text-white">
                                         @{{ record.name }}
                                     </p>
 
-                                    <p class="text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
-                                        @{{ "@lang('admin::app.catalog.products.index.datagrid.id-value')".replace(':id', record.product_id) }}
-                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300">
+                                            <span class="icon-hashtag mr-1"></span>
+                                            @{{ record.sku }}
+                                        </span>
+                                        
+                                        <span class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                                            @{{ record.category_name ?? 'Sin categoría' }}
+                                        </span>
+                                    </div>
 
-                                    <p class="text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
-                                        @{{ "@lang('admin::app.catalog.products.index.datagrid.sku-value')".replace(':sku', record.sku) }}
-                                    </p>
-
-                                    <p class="text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
-                                        @{{ "@lang('admin::app.catalog.products.index.datagrid.attribute-family-value')".replace(':attribute_family', record.attribute_family) }}
-                                    </p>
-
-                                    <p class="text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
-                                        @{{ record.category_name ?? 'N/A' }}
-                                    </p>
-
-                                    <p class="text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
-                                        @{{ record.type }}
-                                    </p>
-
-                                    <p class="text-sm font-semibold text-gray-800 dark:text-white sm:text-base">
+                                    <p class="text-lg font-bold text-[#1e3c72] dark:text-[#3b6bb8]">
                                         @{{ $admin.formatPrice(record.price) }}
                                     </p>
 
-                                    <div>
-                                        <div v-if="['configurable', 'bundle', 'grouped' , 'booking'].includes(record.type)">
-                                            <p class="text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
-                                                <span class="text-red-600">N/A</span>
-                                            </p>
-                                        </div>
-
-                                        <div v-else>
-                                            <p
-                                                class="text-xs text-gray-600 dark:text-gray-300 sm:text-sm"
-                                                v-if="record.quantity > 0"
-                                            >
-                                                <span class="text-green-600">
-                                                    @{{ "@lang('admin::app.catalog.products.index.datagrid.qty-value')".replace(':qty', record.quantity) }}
-                                                </span>
-                                            </p>
-
-                                            <p
-                                                class="text-xs text-gray-600 dark:text-gray-300 sm:text-sm"
-                                                v-else
-                                            >
-                                                <span class="text-red-600">
-                                                    @lang('admin::app.catalog.products.index.datagrid.out-of-stock')
-                                                </span>
-                                            </p>
-                                        </div>
+                                    <!-- Stock Info -->
+                                    <div v-if="!['configurable', 'bundle', 'grouped' , 'booking'].includes(record.type)">
+                                        <p class="text-sm" v-if="record.quantity > 0">
+                                            <span class="font-semibold text-green-600">
+                                                En stock: @{{ record.quantity }} piezas
+                                            </span>
+                                        </p>
+                                        <p class="text-sm" v-else>
+                                            <span class="font-semibold text-red-600">
+                                                Sin existencias
+                                            </span>
+                                        </p>
                                     </div>
 
-                                    <p :class="[record.status ? 'label-active': 'label-info']">
-                                        @{{ record.status ? "@lang('admin::app.catalog.products.index.datagrid.active')" : "@lang('admin::app.catalog.products.index.datagrid.disable')" }}
-                                    </p>
+                                    <!-- Status Badge -->
+                                    <div>
+                                        <span v-if="record.status" class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-800">
+                                            <span class="mr-1 h-2 w-2 rounded-full bg-green-600"></span>
+                                            Activo
+                                        </span>
+                                        <span v-else class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-800">
+                                            <span class="mr-1 h-2 w-2 rounded-full bg-gray-600"></span>
+                                            Inactivo
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- Actions -->
                             <div class="flex items-center gap-1">
                                 <span
-                                    class="cursor-pointer rounded-md p-1.5 text-xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800"
+                                    class="cursor-pointer rounded-md p-1.5 text-xl transition-all hover:bg-blue-100 dark:hover:bg-gray-800"
                                     :class="action.icon"
                                     v-text="! action.icon ? action.title : ''"
                                     v-for="action in record.actions"
@@ -252,10 +272,10 @@
                         </div>
                     </div>
 
-                    <!-- Desktop Layout (Hidden on Mobile) -->
+                    <!-- Desktop Layout -->
                     <div class="hidden md:contents">
-                        <!-- Name, SKU, Attribute Family Columns -->
-                        <div class="flex gap-2.5">
+                        <!-- Columna: Nombre y SKU -->
+                        <div class="flex gap-3">
                             @if ($hasPermission)
                                 <input
                                     type="checkbox"
@@ -267,126 +287,113 @@
                                 >
 
                                 <label
-                                    class="icon-uncheckbox peer-checked:icon-checked cursor-pointer rounded-md text-2xl peer-checked:text-blue-600"
+                                    class="icon-uncheckbox peer-checked:icon-checked cursor-pointer rounded-md text-2xl peer-checked:text-[#1e3c72]"
                                     :for="`mass_action_select_record_${record.product_id}`"
                                 ></label>
                             @endif
 
-                            <div class="flex flex-col gap-1.5">
-                                <p class="break-all text-base font-semibold text-gray-800 dark:text-white">
+                            <div class="flex flex-col gap-2">
+                                <p class="text-base font-bold text-gray-800 dark:text-white">
                                     @{{ record.name }}
                                 </p>
 
-                                <p class="text-gray-600 dark:text-gray-300">
-                                    @{{ "@lang('admin::app.catalog.products.index.datagrid.sku-value')".replace(':sku', record.sku) }}
-                                </p>
-
-                                <p class="text-gray-600 dark:text-gray-300">
-                                    @{{ "@lang('admin::app.catalog.products.index.datagrid.attribute-family-value')".replace(':attribute_family', record.attribute_family) }}
-                                </p>
+                                <span class="inline-flex w-fit items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300">
+                                    <span class="icon-hashtag mr-1"></span>
+                                    @{{ record.sku }}
+                                </span>
                             </div>
                         </div>
 
-                        <!-- Image, Price, Id, Stock Columns -->
-                        <div class="flex gap-1.5">
+                        <!-- Columna: Imagen, Precio y Stock -->
+                        <div class="flex gap-3">
+                            <!-- Imagen -->
                             <div class="relative">
                                 <template v-if="record.base_image">
                                     <img
-                                        class="max-h-[65px] min-h-[65px] min-w-[65px] max-w-[65px] rounded"
+                                        class="h-20 w-20 rounded-lg border-2 border-gray-200 object-cover"
                                         :src='record.base_image'
                                     />
 
-                                    <span class="absolute bottom-px rounded-full bg-darkPink px-1.5 text-xs font-bold leading-normal text-white ltr:left-px rtl:right-px">
+                                    <span class="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#1e3c72] text-xs font-bold text-white">
                                         @{{ record.images_count }}
                                     </span>
                                 </template>
 
                                 <template v-else>
-                                    <div class="relative h-[60px] max-h-[60px] w-full max-w-[60px] rounded border border-dashed border-gray-300 dark:border-gray-800 dark:mix-blend-exclusion dark:invert">
-                                        <img src="{{ bagisto_asset('images/product-placeholders/front.svg')}}">
-
-                                        <p class="absolute bottom-1.5 w-full text-center text-[6px] font-semibold text-gray-400">
-                                            @lang('admin::app.catalog.products.index.datagrid.product-image')
+                                    <div class="relative h-20 w-20 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-800">
+                                        <img src="{{ bagisto_asset('images/product-placeholders/front.svg')}}" class="p-2">
+                                        <p class="absolute bottom-1 w-full text-center text-[8px] font-semibold text-gray-400">
+                                            Sin imagen
                                         </p>
                                     </div>
                                 </template>
                             </div>
 
-                            <div class="flex flex-col gap-1.5">
-                                <p class="text-base font-semibold text-gray-800 dark:text-white">
+                            <!-- Info -->
+                            <div class="flex flex-col gap-1.5 justify-center">
+                                <p class="text-lg font-bold text-[#1e3c72] dark:text-[#3b6bb8]">
                                     @{{ $admin.formatPrice(record.price) }}
                                 </p>
 
-                                <!-- Parent Product Quantity -->
-                                <div v-if="['configurable', 'bundle', 'grouped' , 'booking'].includes(record.type)">
-                                    <p class="text-gray-600 dark:text-gray-300">
-                                        <span class="text-red-600">N/A</span>
+                                <div v-if="!['configurable', 'bundle', 'grouped' , 'booking'].includes(record.type)">
+                                    <p class="text-sm" v-if="record.quantity > 0">
+                                        <span class="font-semibold text-green-600">
+                                            Stock: @{{ record.quantity }}
+                                        </span>
+                                    </p>
+                                    <p class="text-sm" v-else>
+                                        <span class="font-semibold text-red-600">
+                                            Sin stock
+                                        </span>
                                     </p>
                                 </div>
-
                                 <div v-else>
-                                    <p
-                                        class="text-gray-600 dark:text-gray-300"
-                                        v-if="record.quantity > 0"
-                                    >
-                                        <span class="text-green-600">
-                                            @{{ "@lang('admin::app.catalog.products.index.datagrid.qty-value')".replace(':qty', record.quantity) }}
-                                        </span>
-                                    </p>
-
-                                    <p
-                                        class="text-gray-600 dark:text-gray-300"
-                                        v-else
-                                    >
-                                        <span class="text-red-600">
-                                            @lang('admin::app.catalog.products.index.datagrid.out-of-stock')
-                                        </span>
-                                    </p>
+                                    <span class="text-sm text-gray-500">N/A</span>
                                 </div>
-
-                                <p class="text-gray-600 dark:text-gray-300">
-                                    @{{ "@lang('admin::app.catalog.products.index.datagrid.id-value')".replace(':id', record.product_id) }}
-                                </p>
                             </div>
                         </div>
 
-                        <!-- Status, Category, Type Columns -->
-                        <div class="flex items-center justify-between gap-x-4">
-                            <div class="flex flex-col gap-1.5">
-                                <p :class="[record.status ? 'label-active': 'label-info']">
-                                    @{{ record.status ? "@lang('admin::app.catalog.products.index.datagrid.active')" : "@lang('admin::app.catalog.products.index.datagrid.disable')" }}
-                                </p>
+                        <!-- Columna: Status, Categoría y Acciones -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex flex-col gap-2">
+                                <!-- Status -->
+                                <span v-if="record.status" class="inline-flex w-fit items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
+                                    <span class="mr-1.5 h-2 w-2 rounded-full bg-green-600"></span>
+                                    Activo
+                                </span>
+                                <span v-else class="inline-flex w-fit items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800">
+                                    <span class="mr-1.5 h-2 w-2 rounded-full bg-gray-600"></span>
+                                    Inactivo
+                                </span>
 
-                                <p class="text-gray-600 dark:text-gray-300">
-                                    @{{ record.category_name ?? 'N/A' }}
-                                </p>
+                                <!-- Categoría -->
+                                <span class="inline-flex w-fit items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                                    @{{ record.category_name ?? 'Sin categoría' }}
+                                </span>
 
-                                <p class="text-gray-600 dark:text-gray-300">
+                                <!-- Tipo -->
+                                <span class="text-xs text-gray-600 dark:text-gray-400">
                                     @{{ record.type }}
-                                </p>
+                                </span>
                             </div>
 
-                            <p
-                                class="flex items-center gap-1.5"
-                                v-if="available.actions.length"
-                            >
+                            <!-- Acciones -->
+                            <div class="flex items-center gap-1">
                                 <span
-                                    class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
+                                    class="cursor-pointer rounded-md p-2 text-2xl transition-all hover:bg-blue-100 dark:hover:bg-gray-800"
                                     :class="action.icon"
                                     v-text="! action.icon ? action.title : ''"
                                     v-for="action in record.actions"
                                     @click="performAction(action)"
                                 >
                                 </span>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </template>
         </template>
     </x-admin::datagrid>
-
-    {!! view_render_event('bagisto.admin.catalog.products.list.after') !!}
 
     @pushOnce('scripts')
         <script
@@ -398,10 +405,11 @@
                 @if (bouncer()->hasPermission('catalog.products.create'))
                     <button
                         type="button"
-                        class="primary-button"
+                        class="primary-button flex items-center gap-2"
                         @click="$refs.productCreateModal.toggle()"
                     >
-                        @lang('admin::app.catalog.products.index.create-btn')
+                        <span class="icon-add text-lg"></span>
+                        Nuevo Producto
                     </button>
                 @endif
 
@@ -418,7 +426,7 @@
                                     class="text-lg font-bold text-gray-800 dark:text-white"
                                     v-if="! attributes.length"
                                 >
-                                    @lang('admin::app.catalog.products.index.create.title')
+                                    Crear Nuevo Producto - Colegio Meze
                                 </p>
 
                                 <p
@@ -437,7 +445,7 @@
                                     <!-- Product Type -->
                                     <x-admin::form.control-group>
                                         <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.catalog.products.index.create.type')
+                                            Tipo de Producto
                                         </x-admin::form.control-group.label>
 
                                         <x-admin::form.control-group.control
@@ -459,7 +467,7 @@
                                     <!-- Attribute Family Id -->
                                     <x-admin::form.control-group>
                                         <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.catalog.products.index.create.family')
+                                            Familia de Atributos
                                         </x-admin::form.control-group.label>
 
                                         <x-admin::form.control-group.control
@@ -481,7 +489,7 @@
                                     <!-- SKU -->
                                     <x-admin::form.control-group>
                                         <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.catalog.products.index.create.sku')
+                                            SKU
                                         </x-admin::form.control-group.label>
 
                                         <x-admin::form.control-group.control
@@ -489,6 +497,7 @@
                                             name="sku"
                                             ::rules="{ required: true, regex: /^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/ }"
                                             :label="trans('admin::app.catalog.products.index.create.sku')"
+                                            placeholder="Ej: CAMISA-NIÑO-M"
                                         />
 
                                         <x-admin::form.control-group.error control-name="sku" />
@@ -534,22 +543,24 @@
                             <x-slot:footer>
                                 <div class="flex items-center gap-x-2.5">
                                     <!-- Back Button -->
-                                    <x-admin::button
-                                        button-type="button"
+                                    <button
+                                        type="button"
                                         class="transparent-button hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800"
-                                        :title="trans('admin::app.catalog.products.index.create.back-btn')"
                                         v-if="attributes.length"
                                         @click="attributes = []"
-                                    />
+                                    >
+                                        Atrás
+                                    </button>
 
                                     <!-- Save Button -->
-                                    <x-admin::button
-                                        button-type="button"
+                                    <button
+                                        type="submit"
                                         class="primary-button"
-                                        :title="trans('admin::app.catalog.products.index.create.save-btn')"
-                                        ::loading="isLoading"
-                                        ::disabled="isLoading"
-                                    />
+                                        :disabled="isLoading"
+                                    >
+                                        <span v-if="!isLoading">Guardar Producto</span>
+                                        <span v-else>Guardando...</span>
+                                    </button>
                                 </div>
                             </x-slot>
                         </x-admin::modal>
@@ -565,9 +576,7 @@
                 data() {
                     return {
                         attributes: [],
-
                         superAttributes: {},
-
                         isLoading: false,
                     };
                 },
@@ -578,7 +587,6 @@
 
                         this.attributes.forEach(attribute => {
                             params.super_attributes ||= {};
-
                             params.super_attributes[attribute.code] = this.superAttributes[attribute.code];
                         });
 
@@ -590,7 +598,6 @@
                                     window.location.href = response.data.data.redirect_url;
                                 } else {
                                     this.attributes = response.data.data.attributes;
-
                                     this.setSuperAttributes();
                                 }
                             })
@@ -609,7 +616,6 @@
                         });
 
                         this.attributes = this.attributes.filter(attribute => attribute.options.length > 0);
-
                         this.setSuperAttributes();
                     },
 
@@ -625,7 +631,11 @@
                         });
                     }
                 }
-            })
+            });
+
+            app.component('v-category-filter', {
+                template: '<div></div>',
+            });
         </script>
     @endPushOnce
 </x-admin::layouts>
